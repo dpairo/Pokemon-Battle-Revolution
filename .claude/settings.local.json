@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:bulbapedia.bulbagarden.net)",
+      "Bash(./gradlew compileJava:*)",
+      "Bash(git add:*)",
+      "WebFetch(domain:pokeapi.co)",
+      "Bash(find:*)"
+    ]
+  }
+}
