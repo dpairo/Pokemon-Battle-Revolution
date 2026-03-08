@@ -5,7 +5,16 @@
       "Bash(./gradlew compileJava:*)",
       "Bash(git add:*)",
       "WebFetch(domain:pokeapi.co)",
-      "Bash(find:*)"
+      "Bash(find:*)",
+      "Bash(tree:*)",
+      "Bash(./gradlew build:*)",
+      "WebSearch",
+      "Bash(./gradlew:*)",
+      "Bash(gtimeout 15:*)",
+      "Bash(do sed:*)",
+      "Bash(gh auth:*)",
+      "Bash(git remote:*)",
+      "Bash(git push:*)"
     ]
   }
 }

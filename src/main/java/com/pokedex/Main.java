@@ -1,11 +1,11 @@
 package com.pokedex;
 
-public class Main {
-    static void main() {
-        IO.println(String.format("Hello and welcome!"));
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-        for (int i = 1; i <= 5; i++) {
-            IO.println("i = " + i);
-        }
+@SpringBootApplication
+public class Main {
+    public static void main(String[] args) {
+        SpringApplication.run(Main.class, args);
     }
 }

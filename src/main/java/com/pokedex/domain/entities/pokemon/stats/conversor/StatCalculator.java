@@ -1,0 +1,10 @@
+package com.pokedex.domain.entities.pokemon.stats.conversor;
+
+import com.pokedex.domain.entities.pokemon.stats.Statistics;
+
+public interface StatCalculator {
+    void calculateStatsAtLevel(Statistics stats, int level);
+    void calculateBattleStats(Statistics stats);
+    int calculateHpAtLevel(int baseHp, int iv, int ev, int level);
+    int calculateStatAtLevel(int baseStat, int iv, int ev, int level);
+}
