@@ -29,11 +29,14 @@ public class HealthBerry implements Consumable {
     }
 
     public int getHpToRestore(Pokemon pokemon) {
-        consume(pokemon);
+        int hpToRestore;
         if (type.isPercentageBased()) {
             int maxHp = pokemon.getStats().getHpAtLevel();
-            return (int) (maxHp * type.getRestorationValue());
+            hpToRestore = (int) (maxHp * type.getRestorationValue());
+        } else {
+            hpToRestore = (int) type.getRestorationValue();
         }
-        return (int) type.getRestorationValue();
+        consume(pokemon);
+        return hpToRestore;
     }
 }

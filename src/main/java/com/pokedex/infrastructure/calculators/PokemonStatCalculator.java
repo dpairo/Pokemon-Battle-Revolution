@@ -1,6 +1,7 @@
-package com.pokedex.domain.entities.pokemon.stats.conversor;
+package com.pokedex.infrastructure.calculators;
 
 import com.pokedex.domain.entities.pokemon.stats.Statistics;
+import com.pokedex.domain.entities.pokemon.stats.conversor.StatCalculator;
 
 public class PokemonStatCalculator implements StatCalculator {
 
@@ -24,6 +25,15 @@ public class PokemonStatCalculator implements StatCalculator {
     @Override
     public void calculateBattleStats(Statistics stats) {
         stats.setHpAtBattle(stats.getHpAtLevel());
+        stats.setAttackAtBattle(applyStageModifier(stats.getAttackAtLevel(), stats.getAttackStageValue()));
+        stats.setDefenceAtBattle(applyStageModifier(stats.getDefenceAtLevel(), stats.getDefenceStageValue()));
+        stats.setSpecialAttackAtBattle(applyStageModifier(stats.getSpecialAttackAtLevel(), stats.getSpecialAttackStageValue()));
+        stats.setSpecialDefenceAtBattle(applyStageModifier(stats.getSpecialDefenceAtLevel(), stats.getSpecialDefenceStageValue()));
+        stats.setSpeedAtBattle(applyStageModifier(stats.getSpeedAtLevel(), stats.getSpeedStageValue()));
+    }
+
+    @Override
+    public void recalculateBattleStatsAfterStageChange(Statistics stats) {
         stats.setAttackAtBattle(applyStageModifier(stats.getAttackAtLevel(), stats.getAttackStageValue()));
         stats.setDefenceAtBattle(applyStageModifier(stats.getDefenceAtLevel(), stats.getDefenceStageValue()));
         stats.setSpecialAttackAtBattle(applyStageModifier(stats.getSpecialAttackAtLevel(), stats.getSpecialAttackStageValue()));

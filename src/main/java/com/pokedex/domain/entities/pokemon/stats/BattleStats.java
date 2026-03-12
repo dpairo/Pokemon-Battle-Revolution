@@ -35,7 +35,7 @@ public class BattleStats {
         this.specialAttackStage = new StatStage(StatList.SpecialAttack);
         this.specialDefenceStage = new StatStage(StatList.SpecialDefense);
         this.speedStage = new StatStage(StatList.Speed);
-        this.accuracyStage = new StatStage(StatList.Accuracy);
+        this.accuracyStage = new StatStage(StatList.Precision);
         this.evasionStage = new StatStage(StatList.Evasion);
 
         this.currentHp = 0;
@@ -127,7 +127,7 @@ public class BattleStats {
             case SpecialAttack -> this.specialAttackStage.applyChange(change, pokemonName);
             case SpecialDefense -> this.specialDefenceStage.applyChange(change, pokemonName);
             case Speed -> this.speedStage.applyChange(change, pokemonName);
-            case Accuracy -> this.accuracyStage.applyChange(change, pokemonName);
+            case Precision -> this.accuracyStage.applyChange(change, pokemonName);
             case Evasion -> this.evasionStage.applyChange(change, pokemonName);
             default -> new StageChangeResult(false, 0, "HP no tiene stages", false);
         };

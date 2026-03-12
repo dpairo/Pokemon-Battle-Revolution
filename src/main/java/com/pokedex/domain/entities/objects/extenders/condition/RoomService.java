@@ -8,6 +8,12 @@ public class RoomService implements Consumable, ConditionExtender {
     private static final String NAME = "Room Service";
     private static final int EXTENSION_TURNS = 3;
 
+    private final ConditionList extendedCondition;
+
+    public RoomService(ConditionList extendedCondition) {
+        this.extendedCondition = extendedCondition;
+    }
+
     @Override
     public String getName() {
         return NAME;
@@ -20,7 +26,7 @@ public class RoomService implements Consumable, ConditionExtender {
 
     @Override
     public ConditionList getExtendedCondition() {
-        return ConditionList.TRICK_ROOM;
+        return extendedCondition;
     }
 
     @Override

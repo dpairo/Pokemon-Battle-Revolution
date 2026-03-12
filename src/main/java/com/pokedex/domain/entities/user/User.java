@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 public class User {
@@ -101,6 +102,6 @@ public class User {
     }
 
     public Optional<Team> getTeamById(Long teamId) {
-        return teams.stream().filter(team -> team.getId().equals(teamId)).findFirst();
+        return teams.stream().filter(team -> Objects.equals(team.getId(), teamId)).findFirst();
     }
 }

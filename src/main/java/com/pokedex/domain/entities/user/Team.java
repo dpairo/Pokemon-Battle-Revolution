@@ -3,7 +3,6 @@ package com.pokedex.domain.entities.user;
 import com.pokedex.domain.entities.pokemon.Pokemon;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Team {
@@ -16,6 +15,15 @@ public class Team {
         this.pokemons = new ArrayList<Pokemon>(MAX_POKEMONS);
         this.teamName = teamName;
         this.id = id;
+    }
+
+    public Team(String teamName, List<Pokemon> pokemons) {
+        if (pokemons.size() > MAX_POKEMONS) {
+            throw new IllegalArgumentException("A team cannot have more than " + MAX_POKEMONS + " pokemon");
+        }
+        this.teamName = teamName;
+        this.pokemons = new ArrayList<>(pokemons);
+        this.id = null;
     }
 
     public Team(Team otherTeam) {
@@ -41,11 +49,19 @@ public class Team {
         }
     }
 
+    public int getMaxPokemons() {
+        return MAX_POKEMONS;
+    }
+
     public Long getId() {
         return id;
     }
 
     public String getTeamName() {
         return teamName;
+    }
+
+    public List<Pokemon> getPokemons() {
+        return new ArrayList<>(pokemons);
     }
 }

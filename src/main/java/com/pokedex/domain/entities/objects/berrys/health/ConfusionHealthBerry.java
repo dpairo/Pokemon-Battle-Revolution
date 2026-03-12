@@ -44,14 +44,16 @@ public class ConfusionHealthBerry implements Consumable {
     }
 
     public int getHpToRestore(Pokemon pokemon) {
-        consume(pokemon);
         int maxHp = pokemon.getStats().getHpAtLevel();
-        return (int) (maxHp * HP_RESTORATION_PERCENTAGE);
+        int hpToRestore = (int) (maxHp * HP_RESTORATION_PERCENTAGE);
+        consume(pokemon);
+        return hpToRestore;
     }
 
     public int getHpToRestoreWithRipen(Pokemon pokemon) {
-        consume(pokemon);
         int maxHp = pokemon.getStats().getHpAtLevel();
-        return (int) (maxHp * HP_RESTORATION_PERCENTAGE_WITH_RIPEN);
+        int hpToRestore = (int) (maxHp * HP_RESTORATION_PERCENTAGE_WITH_RIPEN);
+        consume(pokemon);
+        return hpToRestore;
     }
 }

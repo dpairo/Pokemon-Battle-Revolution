@@ -47,16 +47,21 @@ public class StageBerry implements Consumable {
     }
 
     public StageChangeResult applyStageBoost(Pokemon pokemon) {
-        consume(pokemon);
         StatList stat = getStatToBoost();
+        if (stat == null) {
+            throw new UnsupportedOperationException(
+                "Esta berry requiere un RandomProvider para determinar el stat. Usa la sobrecarga correspondiente."
+            );
+        }
+        consume(pokemon);
         int boost = getStageBoost();
-        return pokemon.getStats().applyStageChange(stat, boost, pokemon.getName());
+        return pokemon.applyStageChange(stat, boost);
     }
 
     public StageChangeResult applyStageBoostWithRipen(Pokemon pokemon) {
         consume(pokemon);
         StatList stat = getStatToBoost();
         int boost = getStageBoostWithRipen();
-        return pokemon.getStats().applyStageChange(stat, boost, pokemon.getName());
+        return pokemon.applyStageChange(stat, boost);
     }
 }

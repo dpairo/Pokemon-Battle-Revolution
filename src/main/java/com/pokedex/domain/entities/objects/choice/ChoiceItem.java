@@ -1,11 +1,6 @@
 package com.pokedex.domain.entities.objects.choice;
 
-import com.pokedex.domain.entities.objects.Consumable;
-import com.pokedex.domain.entities.pokemon.Pokemon;
+import com.pokedex.domain.entities.objects.Item;
 
-public abstract class ChoiceItem implements Consumable {
-    @Override
-    public void loseObject(Pokemon pokemon) {
-        pokemon.setObject(null);
-    }
+public abstract class ChoiceItem implements Item {
 }

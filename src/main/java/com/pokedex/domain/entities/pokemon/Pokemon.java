@@ -1,5 +1,8 @@
 package com.pokedex.domain.entities.pokemon;
 
+import com.pokedex.domain.entities.pokedex.PokedexEntry;
+import com.pokedex.domain.entities.pokemon.abilities.Ability;
+import com.pokedex.domain.entities.pokemon.moves.Move;
 import com.pokedex.domain.entities.statuses.Status;
 import com.pokedex.domain.entities.objects.Item;
 import com.pokedex.domain.entities.pokemon.stats.Statistics;
@@ -10,36 +13,32 @@ import com.pokedex.domain.entities.pokemon.stats.evs.EvChangeResult;
 import com.pokedex.domain.entities.pokemon.stats.ivs.IvChangeResult;
 import com.pokedex.domain.entities.pokemon.types.TypeList;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
 public class Pokemon {
     private static final int MIN_LEVEL = 1;
     private static final int MAX_LEVEL = 100;
 
-    private Integer pokedexId;
-    private String name;
-    private TypeList firstType;
-    private TypeList secondType;
+    private final PokedexEntry entry;
     private Statistics stats;
     private Integer level;
-    private Integer height;
-    private Integer weight;
-    private String spriteUrl;
     private Status status;
     private Item item;
     private boolean isStatused;
+    private Ability ability;
+    private List<Move> moves;
     private final StatCalculator statCalculator;
 
-    public Pokemon(Integer pokedexId, String name, TypeList firstType, TypeList secondType, Statistics stats, Integer level, Integer height, Integer weight, String spriteUrl, StatCalculator statCalculator) {
-        this.pokedexId = pokedexId;
-        this.name = name;
-        this.firstType = firstType;
-        this.secondType = secondType;
+    public Pokemon(PokedexEntry entry, Statistics stats, Integer level, StatCalculator statCalculator) {
+        this.entry = entry;
         this.stats = stats;
         this.level = this.clampLevel(level);
-        this.height = height;
-        this.weight = weight;
-        this.spriteUrl = spriteUrl;
         this.item = null;
         this.isStatused = false;
+        this.ability = null;
+        this.moves = new ArrayList<>();
         this.statCalculator = statCalculator;
 
         this.recalculateStats();
@@ -51,43 +50,31 @@ public class Pokemon {
     }
 
     public void recalculateBattleStats() {
-        this.statCalculator.calculateBattleStats(this.stats);
+        this.statCalculator.recalculateBattleStatsAfterStageChange(this.stats);
     }
 
     private int clampLevel(int level) {
         return Math.max(MIN_LEVEL, Math.min(level, MAX_LEVEL));
     }
 
-    public Integer getPokedexId() {
-        return this.pokedexId;
+    public PokedexEntry getEntry() {
+        return this.entry;
     }
 
-    public void setPokedexId(Integer pokedexId) {
-        this.pokedexId = pokedexId;
+    public Integer getPokedexId() {
+        return this.entry.getPokedexId();
     }
 
     public String getName() {
-        return this.name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+        return this.entry.getName();
     }
 
     public TypeList getFirstType() {
-        return this.firstType;
-    }
-
-    public void setFirstType(TypeList firstType) {
-        this.firstType = firstType;
+        return this.entry.getFirstType();
     }
 
     public TypeList getSecondType() {
-        return this.secondType;
-    }
-
-    public void setSecondType(TypeList secondType) {
-        this.secondType = secondType;
+        return this.entry.getSecondType();
     }
 
     public Statistics getStats() {
@@ -106,30 +93,6 @@ public class Pokemon {
     public void setLevel(Integer level) {
         this.level = this.clampLevel(level);
         this.recalculateStats();
-    }
-
-    public Integer getHeight() {
-        return this.height;
-    }
-
-    public void setHeight(Integer height) {
-        this.height = height;
-    }
-
-    public Integer getWeight() {
-        return this.weight;
-    }
-
-    public void setWeight(Integer weight) {
-        this.weight = weight;
-    }
-
-    public String getSpriteUrl() {
-        return this.spriteUrl;
-    }
-
-    public void setSpriteUrl(String spriteUrl) {
-        this.spriteUrl = spriteUrl;
     }
 
     public Status getStatus() {
@@ -154,7 +117,7 @@ public class Pokemon {
     }
 
     public EvChangeResult applyEvChange(StatList stat, int change) {
-        EvChangeResult result = this.stats.getPokemonEvs().applyChange(stat, change, this.name);
+        EvChangeResult result = this.stats.getPokemonEvs().applyChange(stat, change, this.getName());
         if (result.wasApplied()) {
             this.recalculateStats();
         }
@@ -162,7 +125,7 @@ public class Pokemon {
     }
 
     public IvChangeResult applyIvChange(StatList stat, int change) {
-        IvChangeResult result = this.stats.getPokemonIvs().applyChange(stat, change, this.name);
+        IvChangeResult result = this.stats.getPokemonIvs().applyChange(stat, change, this.getName());
         if (result.wasApplied()) {
             this.recalculateStats();
         }
@@ -170,7 +133,7 @@ public class Pokemon {
     }
 
     public StageChangeResult applyStageChange(StatList stat, int change) {
-        StageChangeResult result = this.stats.applyStageChange(stat, change, this.name);
+        StageChangeResult result = this.stats.applyStageChange(stat, change, this.getName());
         if (result.wasApplied()) {
             this.recalculateBattleStats();
         }
@@ -201,5 +164,39 @@ public class Pokemon {
     public void setAllIvsToMax() {
         this.stats.setAllIvsToMax();
         this.recalculateStats();
+    }
+
+    public Ability getAbility() {
+        return this.ability;
+    }
+
+    public void setAbility(Ability ability) {
+        this.ability = ability;
+    }
+
+    public List<Move> getMoves() {
+        return this.moves;
+    }
+
+    public void setMoves(List<Move> moves) {
+        this.moves = new ArrayList<>(moves);
+    }
+
+    @Override
+    public boolean equals(Object otherObject) {
+        if (this == otherObject) {
+            return true;
+        }
+        if (otherObject == null || this.getClass() != otherObject.getClass()) {
+            return false;
+        }
+
+        Pokemon otherPokemon = (Pokemon) otherObject;
+        return Objects.equals(this.getPokedexId(), otherPokemon.getPokedexId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.getPokedexId());
     }
 }

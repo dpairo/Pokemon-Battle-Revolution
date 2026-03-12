@@ -31,7 +31,7 @@ public abstract class Hazard {
         if (hazardType.dealsSuperEffectiveDamage(firstType) && hazardType.dealsNotEffectiveDamage(secondType)) {
             return 12.5;
         }
-        if (hazardType.dealsNotEffectiveDamage(secondType) && hazardType.dealsSuperEffectiveDamage(firstType)) {
+        if (hazardType.dealsNotEffectiveDamage(firstType) && hazardType.dealsSuperEffectiveDamage(secondType)) {
             return 12.5;
         }
         if (hazardType.dealsSuperEffectiveDamage(firstType) || hazardType.dealsSuperEffectiveDamage(secondType)) {
