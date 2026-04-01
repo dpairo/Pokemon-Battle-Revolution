@@ -1,7 +1,7 @@
 package com.pokedex.domain.entities.statuses;
 
 import com.pokedex.domain.entities.pokemon.Pokemon;
-import com.pokedex.domain.ports.output.random.RandomProvider;
+import com.pokedex.domain.ports.output.random.DamageRollProvider;
 
 public abstract class DamageOverTimeStatus implements Status {
 
@@ -15,7 +15,7 @@ public abstract class DamageOverTimeStatus implements Status {
     }
 
     @Override
-    public boolean preventsAction(RandomProvider random) {
+    public boolean preventsAction(DamageRollProvider random) {
         return false;
     }
 }

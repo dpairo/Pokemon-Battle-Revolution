@@ -1,4 +1,4 @@
-package com.pokedex.domain.entities.pokemon.stats.conversor;
+package com.pokedex.domain.ports.output.battle;
 
 import com.pokedex.domain.entities.pokemon.stats.Statistics;
 

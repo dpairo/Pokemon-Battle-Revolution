@@ -64,4 +64,18 @@ public class Team {
     public List<Pokemon> getPokemons() {
         return new ArrayList<>(pokemons);
     }
+
+    public boolean isDefeated() {
+        return pokemons.stream().allMatch(pokemon -> pokemon.getStats().isFainted());
+    }
+
+    public List<Pokemon> getAvailablePokemons() {
+        return pokemons.stream()
+                .filter(pokemon -> !pokemon.getStats().isFainted())
+                .toList();
+    }
+
+    public boolean hasPokemonAvailable() {
+        return pokemons.stream().anyMatch(pokemon -> !pokemon.getStats().isFainted());
+    }
 }

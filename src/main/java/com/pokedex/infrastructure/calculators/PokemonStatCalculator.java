@@ -1,8 +1,10 @@
 package com.pokedex.infrastructure.calculators;
 
 import com.pokedex.domain.entities.pokemon.stats.Statistics;
-import com.pokedex.domain.entities.pokemon.stats.conversor.StatCalculator;
+import com.pokedex.domain.ports.output.battle.StatCalculator;
+import org.springframework.stereotype.Component;
 
+@Component
 public class PokemonStatCalculator implements StatCalculator {
 
     @Override

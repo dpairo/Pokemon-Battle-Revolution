@@ -1,5 +1,6 @@
 package com.pokedex.domain.entities.pokemon.stats;
 
+import com.pokedex.domain.entities.pokemon.stats.stage.CriticalStage;
 import com.pokedex.domain.entities.pokemon.stats.stage.StageChangeResult;
 import com.pokedex.domain.entities.pokemon.stats.stage.StatStage;
 
@@ -18,6 +19,7 @@ public class BattleStats {
     private final StatStage speedStage;
     private final StatStage accuracyStage;
     private final StatStage evasionStage;
+    private final CriticalStage criticalStage;
 
     private int currentHp;
     private int maxHp;
@@ -37,6 +39,7 @@ public class BattleStats {
         this.speedStage = new StatStage(StatList.Speed);
         this.accuracyStage = new StatStage(StatList.Precision);
         this.evasionStage = new StatStage(StatList.Evasion);
+        this.criticalStage = new CriticalStage();
 
         this.currentHp = 0;
         this.maxHp = 0;
@@ -169,18 +172,29 @@ public class BattleStats {
         return this.currentHp == 0;
     }
 
+    public int getStatValueByStat(StatList stat) {
+        return switch (stat) {
+            case HP ->  this.currentHp;
+            case Attack -> this.attackAtBattle;
+            case Defense -> this.defenceAtBattle;
+            case SpecialAttack -> this.specialAttackAtBattle;
+            case SpecialDefense -> this.specialDefenceAtBattle;
+            case Speed -> this.speedAtBattle;
+            default -> 0;
+        };
+    }
+
+    public CriticalStage getCriticalStage() {
+        return criticalStage;
+    }
+
     @Override
     public String toString() {
-        return String.format(
-                "BattleStats{HP=%d/%d, Atk=%d(%+d), Def=%d(%+d), SpAtk=%d(%+d), SpDef=%d(%+d), Spd=%d(%+d), Acc(%+d), Eva(%+d)}",
-                this.currentHp, this.maxHp,
-                this.attackAtBattle, this.attackStage.getCurrentStage(),
-                this.defenceAtBattle, this.defenceStage.getCurrentStage(),
-                this.specialAttackAtBattle, this.specialAttackStage.getCurrentStage(),
-                this.specialDefenceAtBattle, this.specialDefenceStage.getCurrentStage(),
-                this.speedAtBattle, this.speedStage.getCurrentStage(),
-                this.accuracyStage.getCurrentStage(),
-                this.evasionStage.getCurrentStage()
+        return String.format("BattleStats{HP=%d/%d, Atk=%d(%+d), Def=%d(%+d), SpAtk=%d(%+d), SpDef=%d(%+d), Spd=%d(%+d), Acc(%+d), Eva(%+d)}",
+                this.currentHp, this.maxHp, this.attackAtBattle, this.attackStage.getCurrentStage(), this.defenceAtBattle,
+                this.defenceStage.getCurrentStage(), this.specialAttackAtBattle, this.specialAttackStage.getCurrentStage(),
+                this.specialDefenceAtBattle, this.specialDefenceStage.getCurrentStage(), this.speedAtBattle, this.speedStage.getCurrentStage(),
+                this.accuracyStage.getCurrentStage(), this.evasionStage.getCurrentStage()
         );
     }
 }

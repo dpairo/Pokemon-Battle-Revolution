@@ -7,7 +7,7 @@ import com.pokedex.domain.entities.statuses.Status;
 import com.pokedex.domain.entities.objects.Item;
 import com.pokedex.domain.entities.pokemon.stats.Statistics;
 import com.pokedex.domain.entities.pokemon.stats.StatList;
-import com.pokedex.domain.entities.pokemon.stats.conversor.StatCalculator;
+import com.pokedex.domain.ports.output.battle.StatCalculator;
 import com.pokedex.domain.entities.pokemon.stats.stage.StageChangeResult;
 import com.pokedex.domain.entities.pokemon.stats.evs.EvChangeResult;
 import com.pokedex.domain.entities.pokemon.stats.ivs.IvChangeResult;
@@ -70,11 +70,11 @@ public class Pokemon {
     }
 
     public TypeList getFirstType() {
-        return this.entry.getFirstType();
+        return this.entry.getFirstType().getType();
     }
 
     public TypeList getSecondType() {
-        return this.entry.getSecondType();
+        return this.entry.getSecondType().getType();
     }
 
     public Statistics getStats() {

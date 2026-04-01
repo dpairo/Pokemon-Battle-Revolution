@@ -5,5 +5,5 @@ import com.pokedex.domain.entities.pokemon.moves.Move;
 import com.pokedex.domain.entities.battlefield.BattleField;
 
 public interface CalculateDamageUseCase {
-    int execute(Pokemon attacker, Pokemon defender, Move move, BattleField field);
+    int execute(Move move, BattleField field, Pokemon attacker, Pokemon defender, boolean isDoubles);
 }

@@ -1,7 +1,7 @@
 package com.pokedex.domain.entities.statuses;
 
 import com.pokedex.domain.entities.pokemon.Pokemon;
-import com.pokedex.domain.ports.output.random.RandomProvider;
+import com.pokedex.domain.ports.output.random.DamageRollProvider;
 
 public class Sleeping implements Status {
     private static final int MIN_SLEEP_TURNS = 1;
@@ -26,7 +26,7 @@ public class Sleeping implements Status {
     }
 
     @Override
-    public boolean preventsAction(RandomProvider random) {
+    public boolean preventsAction(DamageRollProvider random) {
         if (!turnsInitialized) {
             this.remainingTurns = MIN_SLEEP_TURNS + random.nextInt(MAX_SLEEP_TURNS - MIN_SLEEP_TURNS + 1);
             this.turnsInitialized = true;

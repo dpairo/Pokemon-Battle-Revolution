@@ -1,10 +1,9 @@
 package com.pokedex.domain.entities.pokemon.moves;
 
-import com.pokedex.domain.entities.pokemon.Pokemon;
-import com.pokedex.domain.entities.pokemon.moves.effects.MoveContext;
 import com.pokedex.domain.entities.pokemon.moves.effects.MoveEffect;
-import com.pokedex.domain.entities.pokemon.moves.effects.MoveEffectResult;
+import com.pokedex.domain.entities.pokemon.stats.StatList;
 import com.pokedex.domain.entities.pokemon.types.Type;
+import com.pokedex.domain.entities.pokemon.types.TypeList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,11 +13,17 @@ public abstract class Move {
     protected Type type;
     protected String name;
     protected String description;
-    protected Double accuracy;
+    protected int accuracy;
+    protected int basePower;
     protected int powerPoints;
     protected int currentPowerPoints;
     protected int priority;
     protected boolean makesContact;
+    protected MoveCategory category;
+    protected StatList statUsed;
+    protected StatList statTargeted;
+    protected boolean hitsAdjacent;
+    protected boolean hitsBothEnemies;
 
     public Move(List<MoveEffect> effects) {
         this.effects = new ArrayList<>(effects);
@@ -32,7 +37,7 @@ public abstract class Move {
         return this.type;
     }
 
-    public Double getAccuracy() {
+    public int getAccuracy() {
         return this.accuracy;
     }
 
@@ -60,19 +65,43 @@ public abstract class Move {
         return this.makesContact;
     }
 
+    public int getBasePower() {
+        return this.basePower;
+    }
+
+    public MoveCategory getCategory() {
+        return this.category;
+    }
+
+    public boolean isPhysical() {
+        return this.category == MoveCategory.PHYSICAL;
+    }
+
+    public boolean isSpecial() {
+        return this.category == MoveCategory.SPECIAL;
+    }
+
+    public boolean isStatusMove() {
+        return this.category == MoveCategory.STATUS;
+    }
+
     public boolean boostedByStab(Type type1, Type type2) {
         return type1.equals(this.type) || type2.equals(this.type);
     }
 
-    public List<MoveEffectResult> applyEffects(Pokemon attacker, Pokemon defender, MoveContext context) {
-        List<MoveEffectResult> results = new ArrayList<>();
-        for (MoveEffect effect : this.effects) {
-            if (context.random().rollChance(effect.getChancePercent())) {
-                results.add(effect.apply(attacker, defender, context));
-            } else {
-                results.add(new MoveEffectResult(false, "El efecto secundario no se activ\u00f3."));
-            }
-        }
-        return results;
+    public boolean getHitsAdjacent() {
+        return this.hitsAdjacent;
+    }
+
+    public boolean getHitsBothEnemies() {
+        return this.hitsBothEnemies;
+    }
+
+    public StatList getStatUsed() {
+        return this.statUsed;
+    }
+
+    public StatList getStatTargeted() {
+        return this.statTargeted;
     }
 }

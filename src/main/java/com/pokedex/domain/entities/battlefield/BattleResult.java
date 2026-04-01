@@ -1,4 +1,4 @@
-package com.pokedex.domain.ports.input.battle;
+package com.pokedex.domain.entities.battlefield;
 
 import java.util.List;
 

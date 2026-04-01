@@ -8,10 +8,11 @@ import com.pokedex.domain.entities.battlefield.field.FieldSide;
 import com.pokedex.domain.entities.battlefield.terrain.Terrain;
 import com.pokedex.domain.entities.battlefield.weather.Weather;
 import com.pokedex.domain.entities.pokemon.Pokemon;
+import com.pokedex.domain.entities.user.Team;
 
 public class BattleField {
-    private FieldSide playerOneSide;
-    private FieldSide playerTwoSide;
+    private FieldSide playerOneField;
+    private FieldSide playerTwoField;
     private Weather weather;
     private Terrain terrain;
     private TrickRoom trickRoom;
@@ -19,9 +20,9 @@ public class BattleField {
     private WonderRoom wonderRoom;
     private Gravity gravity;
 
-    public BattleField() {
-        this.playerOneSide = new FieldSide();
-        this.playerTwoSide = new FieldSide();
+    public BattleField(Team playerOneTeam, Team playerTwoTeam) {
+        this.playerOneField = new FieldSide(playerOneTeam);
+        this.playerTwoField = new FieldSide(playerTwoTeam);
         this.weather = null;
         this.terrain = null;
         this.trickRoom = null;
@@ -30,12 +31,12 @@ public class BattleField {
         this.gravity = null;
     }
 
-    public FieldSide getPlayerOneSide() {
-        return this.playerOneSide;
+    public FieldSide getPlayerOneField() {
+        return this.playerOneField;
     }
 
-    public FieldSide getPlayerTwoSide() {
-        return this.playerTwoSide;
+    public FieldSide getPlayerTwoField() {
+        return this.playerTwoField;
     }
 
     public Weather getWeather() {

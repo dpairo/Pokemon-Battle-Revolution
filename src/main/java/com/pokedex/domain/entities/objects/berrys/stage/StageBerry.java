@@ -49,9 +49,7 @@ public class StageBerry implements Consumable {
     public StageChangeResult applyStageBoost(Pokemon pokemon) {
         StatList stat = getStatToBoost();
         if (stat == null) {
-            throw new UnsupportedOperationException(
-                "Esta berry requiere un RandomProvider para determinar el stat. Usa la sobrecarga correspondiente."
-            );
+            throw new IllegalArgumentException("stat is null");
         }
         consume(pokemon);
         int boost = getStageBoost();
